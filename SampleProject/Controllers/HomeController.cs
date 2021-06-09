@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SampleProject.Models;
+using SampleProject.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,15 +12,17 @@ namespace SampleProject.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IGoogleService _googleService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IGoogleService googleService)
         {
-            _logger = logger;
+            _googleService = googleService;
         }
 
         public IActionResult Index()
         {
+            var results = _googleService.GetPlacesAsync("8675309");
+
             return View();
         }
 
